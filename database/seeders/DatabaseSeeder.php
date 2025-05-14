@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        User::create([
-            'name'=>'Luthfiyah S',
-            'email'=>'piaaasan@gmail.com',
-            'password'=>Hash::make('1'),
-            'role'=>'Calon Mahasiswa'
+        DB::table('users')->insert([
+            'id_user' => 1,
+            'name' => 'Luthfiyah S',
+            'email' => 'piaaasar@gmail.com',
+            'password' => Hash::make('password'), // lebih aman daripada bcrypt langsung
+            'role' => 'Calon Mahasiswa',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
 
     }
 }

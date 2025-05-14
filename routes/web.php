@@ -15,7 +15,7 @@ use App\Http\Controllers\SipenmaruController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 Route::get('/login', [SipenmaruController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [SipenmaruController::class, 'proslogin']);
