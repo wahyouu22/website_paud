@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'id_user' => 1,
             'name' => 'Luthfiyah S',
             'email' => 'piaaasar@gmail.com',
-            'password' => Hash::make('password'), // lebih aman daripada bcrypt langsung
+            'password' => Hash::make('password'),
             'role' => 'Calon Mahasiswa',
             'created_at' => now(),
             'updated_at' => now(),

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SipenmaruController;
+use App\Http\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,23 @@ use App\Http\Controllers\SipenmaruController;
 Route::get('/', function () {
     return view('login');
 });
+
+//frontend routes
+Route::get('/', [FrontController::class, 'index'])->name('front.index');
+Route::get('/details/{course:slug}', [FrontController::class, 'details'])->name('front.details');
+Route::get('/category/{category:slug}', [FrontController::class, 'category'])->name('front.category');
+Route::get('/pricing', [FrontController::class, 'pricing'])->name('front.pricing');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout')->middleware('role:student|teacher');
+    Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store')->middleware('role:student|teacher');
+
+    Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')
+        ->middleware('role:student|teacher|owner');
+});    
 Route::get('/login', [SipenmaruController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [SipenmaruController::class, 'proslogin']);
 Route::get('/logout', [SipenmaruController::class, 'logout']);
